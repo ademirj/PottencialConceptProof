@@ -1,6 +1,8 @@
 ﻿using FluentValidation;
+using FluentValidation.Results;
 using Pottencial.Domain.Entities;
 using Pottencial.Infrastructure.CrossCutting.Exceptions;
+using Pottencial.Infrastructure.CrossCutting.Messages;
 using System;
 using System.Linq;
 
@@ -11,21 +13,16 @@ namespace Pottencial.BDD.Domain.Entities
         public long Cpf { get; private set; }
         public DateTime BirthDate { get; private set; }
 
-        public CostumerPhysicalPerson(long cpf, string name, string email, DateTime birthDate, decimal incomeAmount)
-            : base(name, email, incomeAmount)
+        public CostumerPhysicalPerson(Guid id, long cpf, string name, string email, DateTime birthDate, decimal incomeAmount)
+            : base(id, name, email, incomeAmount)
         {
             this.Cpf = cpf;
             this.BirthDate = birthDate;
         }
 
-        protected override void Validate()
+        public override ValidationResult IsValid()
         {
-            var validation = new CostumerPhysicalPersonValidation().Validate(this);
-            if (!validation.IsValid)
-            {
-                var errors = validation.Errors.Select(x => x.ErrorMessage).ToList();
-                throw new DomainException($"{ string.Join(";", errors) }");
-            }
+            return new CostumerPhysicalPersonValidation().Validate(this);
         }
 
         public int CalculateAge()
@@ -35,12 +32,11 @@ namespace Pottencial.BDD.Domain.Entities
             return DateTime.Now.DayOfYear < BirthDate.DayOfYear ? age-- : age;
         }
 
-
         public class CostumerPhysicalPersonFactory
         {
-            public static CostumerPhysicalPerson Create(long cpf, string name, string email, DateTime birthDate, decimal incomeAmount)
+            public static CostumerPhysicalPerson Create(Guid id, long cpf, string name, string email, DateTime birthDate, decimal incomeAmount)
             {
-                return new CostumerPhysicalPerson(cpf, name, email, birthDate, incomeAmount);
+                return new CostumerPhysicalPerson(id, cpf, name, email, birthDate, incomeAmount);
             }
         }
     }
@@ -52,7 +48,7 @@ namespace Pottencial.BDD.Domain.Entities
             RuleFor(c => c.Cpf)
                 .NotEmpty()
                 .Must(IsCpf)
-                .WithMessage("Invalid Cpf");
+                .WithMessage(DomainMessages.InvalidCpf);
         }
 
         public static bool IsCpf(long cpf)

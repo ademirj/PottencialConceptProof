@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using FluentValidation.Results;
 using Pottencial.Infrastructure.CrossCutting.Exceptions;
 using System;
 
@@ -12,24 +13,17 @@ namespace Pottencial.Domain.Entities
         public string Email { get; private set; }
         public decimal IncomeAmount { get; private set; }
 
-        public Costumer(string name, string email, decimal incomeAmount)
+        public Costumer(Guid id, string name, string email, decimal incomeAmount)
         {
-            this.Id = Guid.NewGuid();
+            this.Id = id;
             this.Name = name;
             this.Email = email;
             this.IncomeAmount = incomeAmount;
-
-            Validate();
         }
 
-        protected virtual void Validate()
+        public virtual ValidationResult IsValid()
         {
-            var validation = new CostumerValidation().Validate(this);
-            if (!validation.IsValid)
-            {
-                var errors = validation.Errors.Select(x => x.ErrorMessage).ToList();
-                throw new DomainException($"{ string.Join(";", errors) }");
-            }
+            return new CostumerValidation().Validate(this);
         }
     }
 

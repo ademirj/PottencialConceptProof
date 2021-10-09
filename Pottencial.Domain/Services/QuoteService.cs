@@ -24,6 +24,7 @@ namespace Pottencial.Domain.Services
         public void QuotingInsuranceLegalPerson(CostumerLegalPersonDto costumerLegalPerson)
         {
             var costumer = CostumerLegalPerson.CostumerLegalPersonFactory.Create(
+                id: Guid.NewGuid(),
                 cnpj: costumerLegalPerson.Cnpj, 
                 name: costumerLegalPerson.Name, 
                 email: costumerLegalPerson.Email, 
@@ -39,6 +40,7 @@ namespace Pottencial.Domain.Services
         public void QuotingInsurancePhysicalPerson(CostumerPhysicalPersonDto costumerPhysicalPerson)
         {
             var costumer = CostumerPhysicalPerson.CostumerPhysicalPersonFactory.Create(
+                id: Guid.NewGuid(),
                 cpf: costumerPhysicalPerson.Cpf,
                 name: costumerPhysicalPerson.Name, 
                 email: costumerPhysicalPerson.Email, 

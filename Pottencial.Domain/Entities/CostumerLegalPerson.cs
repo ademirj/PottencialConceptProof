@@ -1,6 +1,9 @@
 ﻿using FluentValidation;
+using FluentValidation.Results;
 using Pottencial.Domain.Entities;
 using Pottencial.Infrastructure.CrossCutting.Exceptions;
+using Pottencial.Infrastructure.CrossCutting.Messages;
+using System;
 using System.Linq;
 
 namespace Pottencial.BDD.Domain.Entities
@@ -9,27 +12,24 @@ namespace Pottencial.BDD.Domain.Entities
     {
         public long Cnpj { get; private set; }
 
-        public CostumerLegalPerson(long cnpj, string name, string email, decimal incomeAmount)
-            : base(name, email, incomeAmount)
+        public CostumerLegalPerson(Guid id, long cnpj, string name, string email, decimal incomeAmount)
+            : base(id, name, email, incomeAmount)
         {
             this.Cnpj = cnpj;
         }
 
-        protected override void Validate()
+        public override ValidationResult IsValid()
         {
-            var validation = new CostumerLegalPersonValidation().Validate(this);
-            if (!validation.IsValid)
-            {
-                var errors = validation.Errors.Select(x => x.ErrorMessage).ToList();
-                throw new DomainException($"{ string.Join(";", errors) }");
-            }
+            base.IsValid();
+
+            return new CostumerLegalPersonValidation().Validate(this);
         }
 
         public class CostumerLegalPersonFactory
         {
-            public static CostumerLegalPerson Create(long cnpj, string name, string email, decimal incomeAmount)
+            public static CostumerLegalPerson Create(Guid id, long cnpj, string name, string email, decimal incomeAmount)
             {
-                return new CostumerLegalPerson(cnpj, name, email, incomeAmount);
+                return new CostumerLegalPerson(id, cnpj, name, email, incomeAmount);
             }
         }
     }
@@ -41,7 +41,7 @@ namespace Pottencial.BDD.Domain.Entities
             RuleFor(c => c.Cnpj)
                 .NotEmpty()
                 .Must(IsCnpj)
-                .WithMessage("Invalid Cnpj");
+                .WithMessage(DomainMessages.InvalidCnpj);
         }
 
         public static bool IsCnpj(long cnpj)

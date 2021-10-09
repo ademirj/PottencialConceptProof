@@ -123,6 +123,12 @@
   <data name="IncomeAmountNotEnoughToQuote" xml:space="preserve">
     <value>it is not possible to quote the insurance, as the minimum income amount allowed is {0}</value>
   </data>
+  <data name="InvalidCnpj" xml:space="preserve">
+    <value>Invalid Cnpj</value>
+  </data>
+  <data name="InvalidCpf" xml:space="preserve">
+    <value>Invalid Cpf</value>
+  </data>
   <data name="MaxAgeAllowed" xml:space="preserve">
     <value>The maximum age allowed is {0}</value>
   </data>

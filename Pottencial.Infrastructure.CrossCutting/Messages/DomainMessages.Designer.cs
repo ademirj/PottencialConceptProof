@@ -79,6 +79,24 @@ namespace Pottencial.Infrastructure.CrossCutting.Messages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid Cnpj.
+        /// </summary>
+        public static string InvalidCnpj {
+            get {
+                return ResourceManager.GetString("InvalidCnpj", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid Cpf.
+        /// </summary>
+        public static string InvalidCpf {
+            get {
+                return ResourceManager.GetString("InvalidCpf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The maximum age allowed is {0}.
         /// </summary>
         public static string MaxAgeAllowed {

@@ -19,4 +19,11 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Pottencial.Api\Pottencial.Api.csproj" />
+    <ProjectReference Include="..\Pottencial.Domain\Pottencial.Domain.csproj" />
+    <ProjectReference Include="..\Pottencial.Infrastructure.CrossCutting.IoC\Pottencial.Infrastructure.CrossCutting.IoC.csproj" />
+    <ProjectReference Include="..\Pottencial.Infrastructure.CrossCutting\Pottencial.Infrastructure.CrossCutting.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,10 +1,11 @@
-﻿using Pottencial.Domain.Dto;
+﻿using Pottencial.Domain.Entities;
 
 namespace Pottencial.Domain.Interface
 {
     public interface IQuoteService
     {
-        void QuotingInsuranceLegalPerson(CostumerLegalPersonDto costumerLegalPerson);
-        void QuotingInsurancePhysicalPerson(CostumerPhysicalPersonDto costumerPhysicalPerson);
+        decimal GetMinIncomeAmountToQuotingInsuranceLegalPerson();
+        void QuotingInsuranceLegalPerson(CostumerLegalPerson costumerLegalPerson);
+        void QuotingInsurancePhysicalPerson(CostumerPhysicalPerson costumerPhysicalPerson);
     }
 }

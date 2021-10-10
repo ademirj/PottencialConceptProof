@@ -70,7 +70,16 @@ namespace Pottencial.Infrastructure.CrossCutting.Messages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to it is not possible to quote the insurance, as the minimum income amount allowed is {0}.
+        ///   Looks up a localized string similar to Income amount cannot be empty.
+        /// </summary>
+        public static string IncomeAmountCannotBeEmpty {
+            get {
+                return ResourceManager.GetString("IncomeAmountCannotBeEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to it is not possible to quote the insurance, as the minimum income required was not reached.
         /// </summary>
         public static string IncomeAmountNotEnoughToQuote {
             get {

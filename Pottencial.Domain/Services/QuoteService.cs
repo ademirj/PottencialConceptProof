@@ -1,5 +1,5 @@
-﻿using Pottencial.BDD.Domain.Entities;
-using Pottencial.Domain.Dto;
+﻿using Pottencial.Domain.Dto;
+using Pottencial.Domain.Entities;
 using Pottencial.Domain.Interface;
 using Pottencial.Infrastructure.CrossCutting.Exceptions;
 using Pottencial.Infrastructure.CrossCutting.Messages;
@@ -21,40 +21,30 @@ namespace Pottencial.Domain.Services
             _blackListService = blackListService;
         }
 
-        public void QuotingInsuranceLegalPerson(CostumerLegalPersonDto costumerLegalPerson)
+        public void QuotingInsuranceLegalPerson(CostumerLegalPerson costumerLegalPerson)
         {
-            var costumer = CostumerLegalPerson.CostumerLegalPersonFactory.Create(
-                id: Guid.NewGuid(),
-                cnpj: costumerLegalPerson.Cnpj, 
-                name: costumerLegalPerson.Name, 
-                email: costumerLegalPerson.Email, 
-                incomeAmount: costumerLegalPerson.IncomeAmount);
-
-            if (costumer.IncomeAmount <= MinValueInsuranceLegalPerson)
+            if (costumerLegalPerson.IncomeAmount <= MinValueInsuranceLegalPerson)
                 throw new DomainException(string.Format(DomainMessages.IncomeAmountNotEnoughToQuote, MinValueInsurancePhysicalPerson));
 
-            if (_blackListService.ListLegalPerson().Any(p => p == costumer.Cnpj))
+            if (_blackListService.ListLegalPerson().Any(p => p == costumerLegalPerson.Cnpj))
                 throw new DomainException(DomainMessages.CostumerInBlackList);
         }
 
-        public void QuotingInsurancePhysicalPerson(CostumerPhysicalPersonDto costumerPhysicalPerson)
+        public void QuotingInsurancePhysicalPerson(CostumerPhysicalPerson costumerPhysicalPerson)
         {
-            var costumer = CostumerPhysicalPerson.CostumerPhysicalPersonFactory.Create(
-                id: Guid.NewGuid(),
-                cpf: costumerPhysicalPerson.Cpf,
-                name: costumerPhysicalPerson.Name, 
-                email: costumerPhysicalPerson.Email, 
-                birthDate: costumerPhysicalPerson.BirthDate, 
-                incomeAmount: costumerPhysicalPerson.IncomeAmount);
-
-            if (costumer.IncomeAmount <= MinValueInsuranceLegalPerson)
+            if (costumerPhysicalPerson.IncomeAmount <= MinValueInsuranceLegalPerson)
                 throw new DomainException(string.Format(DomainMessages.IncomeAmountNotEnoughToQuote, MinValueInsurancePhysicalPerson));
 
-            if (costumer.CalculateAge() >= MaxAgeAllowed)
+            if (costumerPhysicalPerson.CalculateAge() >= MaxAgeAllowed)
                 throw new DomainException(string.Format(DomainMessages.MaxAgeAllowed, MaxAgeAllowed));
 
-            if (_blackListService.ListPhysicalPerson().Any(p => p == costumer.Cpf))
+            if (_blackListService.ListPhysicalPerson().Any(p => p == costumerPhysicalPerson.Cpf))
                 throw new DomainException(DomainMessages.CostumerInBlackList);
+        }
+
+        public decimal GetMinIncomeAmountToQuotingInsuranceLegalPerson()
+        {
+            return MinValueInsuranceLegalPerson;
         }
     }
 }

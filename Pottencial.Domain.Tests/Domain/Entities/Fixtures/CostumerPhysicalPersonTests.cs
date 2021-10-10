@@ -1,6 +1,10 @@
-﻿using Pottencial.BDD.Domain.Entities;
+﻿using Pottencial.Domain.Entities;
 using System;
 using Xunit;
+using Bogus;
+using Bogus.DataSets;
+using Bogus.Extensions.Brazil;
+using Pottencial.Infrastructure.CrossCutting.Extension;
 
 namespace Pottencial.Tests.Domain.Entities.Fixtures
 {
@@ -13,13 +17,18 @@ namespace Pottencial.Tests.Domain.Entities.Fixtures
     public class CostumerPhysicalPersonFixture
     {
         public CostumerPhysicalPerson CreateValidCostumerPhysicalPerson()
-            => new CostumerPhysicalPerson(
-                id: Guid.NewGuid(),
-                cpf: 42689694034,
-                name: "Ademir",
-                email: "michael@scott.com",
-                birthDate: new DateTime(1988, 10, 22),
-                incomeAmount: 0);
+        {
+            var gender = new Faker().PickRandom<Name.Gender>();
+
+            return new Faker<CostumerPhysicalPerson>("pt_BR")
+                .CustomInstantiator(f => new CostumerPhysicalPerson(
+                        Guid.NewGuid(),
+                        f.Person.Cpf().ToLong(),
+                        f.Name.FirstName(gender),
+                        f.Person.Email,
+                        f.Person.DateOfBirth.AddYears(-25),
+                        f.Random.Decimal(1000.00M, 10000.00M)));
+        }
 
         public CostumerPhysicalPerson CreateInvalidCostumerPhysicalPerson()
             => new CostumerPhysicalPerson(

@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
 using Pottencial.Infrastructure.CrossCutting.Exceptions;
+using Pottencial.Infrastructure.CrossCutting.Messages;
 using System;
 
 using System.Linq;
@@ -24,6 +25,14 @@ namespace Pottencial.Domain.Entities
         public virtual ValidationResult IsValid()
         {
             return new CostumerValidation().Validate(this);
+        }
+
+        public void SetIncomeAmount(decimal incomeAmount)
+        {
+            if (incomeAmount <= 0)
+                throw new DomainException(DomainMessages.IncomeAmountCannotBeEmpty);
+
+            this.IncomeAmount = incomeAmount;
         }
     }
 

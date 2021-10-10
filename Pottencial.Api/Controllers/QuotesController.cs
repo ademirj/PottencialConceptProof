@@ -17,13 +17,13 @@ namespace Pottencial.Api.Controllers
         [HttpPost("insuranceLegalPerson")]
         public void QuotingInsuranceLegalPerson([FromBody] CostumerLegalPersonDto costumerLegalPerson)
         {
-            _quoteService.QuotingInsuranceLegalPerson(costumerLegalPerson);
+            _quoteService.QuotingInsuranceLegalPerson(null);
         }
 
         [HttpPost("insurancePhysicalPerson")]
         public void QuotingInsuranceLegalPerson([FromBody] CostumerPhysicalPersonDto costumerPhysicalPerson)
         {
-            _quoteService.QuotingInsurancePhysicalPerson(costumerPhysicalPerson);
+            _quoteService.QuotingInsurancePhysicalPerson(null);
         }
 
         [HttpGet]

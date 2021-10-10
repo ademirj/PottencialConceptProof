@@ -1,4 +1,4 @@
-﻿using Pottencial.BDD.Domain.Entities;
+﻿using Pottencial.Domain.Entities;
 using System;
 using Xunit;
 

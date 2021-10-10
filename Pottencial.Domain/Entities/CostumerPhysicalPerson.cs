@@ -6,7 +6,7 @@ using Pottencial.Infrastructure.CrossCutting.Messages;
 using System;
 using System.Linq;
 
-namespace Pottencial.BDD.Domain.Entities
+namespace Pottencial.Domain.Entities
 {
     public class CostumerPhysicalPerson : Costumer
     {

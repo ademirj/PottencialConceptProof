@@ -10,12 +10,12 @@ namespace Pottencial.Tests.Behavior.QuotingInsurancePhysicalPerson
 {
     [Binding]
     [Collection(nameof(CostumerPhysicalPersonCollection))]
-    public class DadoQueSouUmConsumidorDeAPISteps
+    public class CotarSeguroSteps
     {
         private readonly CostumerPhysicalPersonFixture _costumerPhysicalPersonFixture;
         private ScenarioContext _scenarioContext;
 
-        public DadoQueSouUmConsumidorDeAPISteps(ScenarioContext scenarioContext, 
+        public CotarSeguroSteps(ScenarioContext scenarioContext, 
             CostumerPhysicalPersonFixture costumerPhysicalPersonFixture)
         {
             _scenarioContext = scenarioContext;
@@ -62,10 +62,18 @@ namespace Pottencial.Tests.Behavior.QuotingInsurancePhysicalPerson
         public void EntaoUmaMensagemDeNegacaoSeraApresentada(string message)
         {
             var exception = _scenarioContext["errorQuotingInsurancePhysicalPerson"];
+            var quoteService = (IQuoteService)_scenarioContext["quoteService"];
 
             Assert.NotNull(exception);
             Assert.NotNull(exception as Exception);
+            Assert.Equal(quoteService.GetMinIncomeAmountToQuotingInsuranceLegalPerson(), (decimal)_scenarioContext["minValueToQuoteInsurance"]);
             Assert.Equal(((Exception)exception).Message, message);
+        }
+
+        [Then(@"nenhuma excessão será gerada")]
+        public void EntaoNenhumaExcessaoSeraGerada()
+        {
+            Assert.Equal(_scenarioContext.ContainsKey("errorQuotingInsurancePhysicalPerson"), false);
         }
     }
 }

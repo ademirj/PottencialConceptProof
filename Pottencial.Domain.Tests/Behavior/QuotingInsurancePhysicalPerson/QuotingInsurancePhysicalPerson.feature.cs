@@ -19,7 +19,7 @@ namespace Pottencial.Tests.Behavior.QuotingInsurancePhysicalPerson
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public partial class DadoQueSouUmConsumidorDeAPIFeature : object, Xunit.IClassFixture<DadoQueSouUmConsumidorDeAPIFeature.FixtureData>, System.IDisposable
+    public partial class CotarSeguroFeature : object, Xunit.IClassFixture<CotarSeguroFeature.FixtureData>, System.IDisposable
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
@@ -31,7 +31,7 @@ namespace Pottencial.Tests.Behavior.QuotingInsurancePhysicalPerson
 #line 1 "QuotingInsurancePhysicalPerson.feature"
 #line hidden
         
-        public DadoQueSouUmConsumidorDeAPIFeature(DadoQueSouUmConsumidorDeAPIFeature.FixtureData fixtureData, Pottencial_Tests_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
+        public CotarSeguroFeature(CotarSeguroFeature.FixtureData fixtureData, Pottencial_Tests_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
         {
             this._testOutputHelper = testOutputHelper;
             this.TestInitialize();
@@ -40,7 +40,8 @@ namespace Pottencial.Tests.Behavior.QuotingInsurancePhysicalPerson
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("pt-BR"), "Behavior/QuotingInsurancePhysicalPerson", "Dado que sou um consumidor de API", "Gostaria de testar o comportamento da cotação de seguro para pessoas fisicas", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("pt-BR"), "Behavior/QuotingInsurancePhysicalPerson", "Cotar seguro", "\tPARA que eu possa cotar um seguro\r\n\tSENDO um cliente pessoa fisica \r\n\tPOSSO cons" +
+                    "ultar a disponibilidade e o valor da cobertura", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -80,16 +81,19 @@ namespace Pottencial.Tests.Behavior.QuotingInsurancePhysicalPerson
             this.TestTearDown();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Avaliar se o cliente possui uma renda minima superior ao minimo permitido")]
-        [Xunit.TraitAttribute("FeatureTitle", "Dado que sou um consumidor de API")]
-        [Xunit.TraitAttribute("Description", "Avaliar se o cliente possui uma renda minima superior ao minimo permitido")]
-        public virtual void AvaliarSeOClientePossuiUmaRendaMinimaSuperiorAoMinimoPermitido()
+        [Xunit.SkippableFactAttribute(DisplayName="Avaliar se o cliente com uma renda superior a minima permitida, conseguirá realiz" +
+            "ar uma cotação de seguro")]
+        [Xunit.TraitAttribute("FeatureTitle", "Cotar seguro")]
+        [Xunit.TraitAttribute("Description", "Avaliar se o cliente com uma renda superior a minima permitida, conseguirá realiz" +
+            "ar uma cotação de seguro")]
+        public virtual void AvaliarSeOClienteComUmaRendaSuperiorAMinimaPermitidaConseguiraRealizarUmaCotacaoDeSeguro()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Avaliar se o cliente possui uma renda minima superior ao minimo permitido", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 4
-this.ScenarioInitialize(scenarioInfo);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Avaliar se o cliente com uma renda superior a minima permitida, conseguirá realiz" +
+                    "ar uma cotação de seguro", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 7
+ this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
             bool isFeatureIgnored = default(bool);
@@ -108,21 +112,72 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 5
- testRunner.Given("que estou solicitando uma cotação de seguros para um cliente do tipo pessoa físic" +
+#line 8
+  testRunner.Given("que estou solicitando uma cotação de seguros para um cliente do tipo pessoa físic" +
                         "a", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dado ");
 #line hidden
-#line 6
- testRunner.And("sua renda mensal é de \'900,00\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "E ");
-#line hidden
-#line 7
- testRunner.And("o valor minimo permitido é de \'3000,00\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "E ");
-#line hidden
-#line 8
- testRunner.When("realizar uma solicitação da cotação de seguro", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Quando ");
-#line hidden
 #line 9
- testRunner.Then("uma mensagem de negação \'it is not possible to quote the insurance, as the minimu" +
+  testRunner.And("sua renda mensal é de \'3500,00\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "E ");
+#line hidden
+#line 10
+  testRunner.And("o valor minimo permitido é de \'3000,00\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "E ");
+#line hidden
+#line 11
+  testRunner.When("realizar uma solicitação da cotação de seguro", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Quando ");
+#line hidden
+#line 12
+  testRunner.Then("nenhuma excessão será gerada", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Entao ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.SkippableFactAttribute(DisplayName="Avaliar se será negado a cotação de um seguro de um cliente sem caracteristicas v" +
+            "álidas")]
+        [Xunit.TraitAttribute("FeatureTitle", "Cotar seguro")]
+        [Xunit.TraitAttribute("Description", "Avaliar se será negado a cotação de um seguro de um cliente sem caracteristicas v" +
+            "álidas")]
+        public virtual void AvaliarSeSeraNegadoACotacaoDeUmSeguroDeUmClienteSemCaracteristicasValidas()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Avaliar se será negado a cotação de um seguro de um cliente sem caracteristicas v" +
+                    "álidas", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 14
+ this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 15
+  testRunner.Given("que estou solicitando uma cotação de seguros para um cliente do tipo pessoa físic" +
+                        "a", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Dado ");
+#line hidden
+#line 16
+  testRunner.And("sua renda mensal é de \'900,00\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "E ");
+#line hidden
+#line 17
+  testRunner.And("o valor minimo permitido é de \'3000,00\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "E ");
+#line hidden
+#line 18
+  testRunner.When("realizar uma solicitação da cotação de seguro", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Quando ");
+#line hidden
+#line 19
+  testRunner.Then("uma mensagem de negação \'it is not possible to quote the insurance, as the minimu" +
                         "m income required was not reached\' será apresentada", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Entao ");
 #line hidden
             }
@@ -136,12 +191,12 @@ this.ScenarioInitialize(scenarioInfo);
             
             public FixtureData()
             {
-                DadoQueSouUmConsumidorDeAPIFeature.FeatureSetup();
+                CotarSeguroFeature.FeatureSetup();
             }
             
             void System.IDisposable.Dispose()
             {
-                DadoQueSouUmConsumidorDeAPIFeature.FeatureTearDown();
+                CotarSeguroFeature.FeatureTearDown();
             }
         }
     }

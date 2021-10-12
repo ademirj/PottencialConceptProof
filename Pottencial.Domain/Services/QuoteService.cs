@@ -35,7 +35,7 @@ namespace Pottencial.Domain.Services
             if (costumerPhysicalPerson.IncomeAmount <= MinValueInsuranceLegalPerson)
                 throw new DomainException(string.Format(DomainMessages.IncomeAmountNotEnoughToQuote, MinValueInsurancePhysicalPerson));
 
-            if (costumerPhysicalPerson.CalculateAge() >= MaxAgeAllowed)
+            if (costumerPhysicalPerson.CalculateAge() > MaxAgeAllowed)
                 throw new DomainException(string.Format(DomainMessages.MaxAgeAllowed, MaxAgeAllowed));
 
             if (_blackListService.ListPhysicalPerson().Any(p => p == costumerPhysicalPerson.Cpf))

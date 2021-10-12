@@ -26,7 +26,7 @@ namespace Pottencial.Tests.Domain.Entities.Fixtures
                         f.Person.Cpf().ToLong(),
                         f.Name.FirstName(gender),
                         f.Person.Email,
-                        f.Person.DateOfBirth.AddYears(-25),
+                        DateTime.Now.AddYears(-25),
                         f.Random.Decimal(1000.00M, 10000.00M)));
         }
 
